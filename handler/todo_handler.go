@@ -1,4 +1,4 @@
-package hanlder
+package handler
 
 import (
 	"GoCleanArch/domain/model"
@@ -13,9 +13,9 @@ type TodoHandler struct {
 	todoUsecase usecase.TodoUsecase
 }
 
-func NewTodoHandler(todoUsecase *usecase.TodoUsecase) *TodoHandler {
-	todoHandler := TodoHandler{todoUsecase: *todoUsecase}
-	return &todoHandler
+func NewTodoHandler(todoUsecase usecase.TodoUsecase) TodoHandler {
+	todoHandler := TodoHandler{todoUsecase: todoUsecase}
+	return todoHandler
 }
 
 func (th *TodoHandler) ViewTodo(c *gin.Context) {
