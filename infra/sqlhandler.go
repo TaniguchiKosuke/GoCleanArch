@@ -1,6 +1,7 @@
 package infra
 
 import (
+	"GoCleanArch/domain/model"
 	"log"
 
 	"gorm.io/driver/sqlite"
@@ -17,6 +18,7 @@ func NewSqlHandler() *SqlHandler {
 		log.Println(err)
 		return nil
 	}
+	conn.AutoMigrate(&model.Todo{})
 
 	sqlHandler := new(SqlHandler)
 	sqlHandler.Conn = conn
