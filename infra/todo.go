@@ -8,8 +8,9 @@ type TodoRepository struct {
 	SqlHandler
 }
 
-func NewTodoRepository(sqlHandler *SqlHandler) {
-
+func NewTodoRepository(sqlHandler *SqlHandler) *TodoRepository {
+	todoRepository := TodoRepository{*sqlHandler}
+	return &todoRepository
 }
 
 func (tr *TodoRepository) FindAllTodo() ([]*model.Todo, error) {
