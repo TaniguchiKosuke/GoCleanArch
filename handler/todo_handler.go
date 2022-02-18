@@ -14,7 +14,7 @@ type TodoHandler struct {
 }
 
 func NewTodoHandler(todoUsecase *usecase.TodoUsecase) *TodoHandler {
-	todoHandler := TodoHandler{todoUsecase: todoUsecase}
+	todoHandler := TodoHandler{todoUsecase: *todoUsecase}
 	return &todoHandler
 }
 
@@ -49,7 +49,7 @@ func (th *TodoHandler) AddTodo(c *gin.Context) {
 		return
 	}
 
-	if err := th.todoUsecase.AddTodo(&todo); err != nil {
+	if err := th.todoUsecase.AddTodo(todo); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, gin.H{"status": "Failed to add new Todo"})
 		return
@@ -66,7 +66,7 @@ func (th *TodoHandler) EditTodo(c *gin.Context) {
 		return
 	}
 
-	if err := th.todoUsecase.EditTodo(&todo); err != nil {
+	if err := th.todoUsecase.EditTodo(todo); err != nil {
 		log.Println(err)
 		c.JSON(http.StatusBadRequest, todo)
 		return
