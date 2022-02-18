@@ -2,6 +2,7 @@ package infra
 
 import (
 	"GoCleanArch/domain/model"
+	"fmt"
 )
 
 type TodoRepository struct {
@@ -24,6 +25,7 @@ func (tr *TodoRepository) FindAllTodo() ([]*model.Todo, error) {
 
 func (tr *TodoRepository) FindTodo(text string) ([]*model.Todo, error) {
 	var todo []*model.Todo
+	fmt.Println(text)
 	if err := tr.Conn.Where("task LIKE ?", "%"+text+"%").Find(&todo).Error; err != nil {
 		return todo, err
 	}
@@ -44,7 +46,7 @@ func (tr *TodoRepository) UpdateTodo(todo *model.Todo) (*model.Todo, error) {
 		return todo, err
 	}
 
-	if err := tr.Conn.Updates(model.Todo{Task: todo.Task, LimitDate: todo.LimitDate, Status: todo.Status}).Error; err != nil {
+	if err := tr.Conn.Updates(model.Todo{ID: todo.ID, Task: todo.Task, LimitDate: todo.LimitDate, Status: todo.Status}).Error; err != nil {
 		return todo, err
 	}
 
